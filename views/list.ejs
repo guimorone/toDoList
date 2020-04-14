@@ -1,0 +1,26 @@
+<%- include("header") -%>
+
+  <div class="box" id="heading">
+    <h1> <%= listTitle %> </h1>
+  </div>
+
+  <div class="box">
+    <% for (let i=0; i<newListItems.length; i++) { %>
+      <form action="/delete" method="post">
+        <div class="item fadeOut">
+          <input type="checkbox" name="checkbox" value="<%= newListItems[i]._id %>" onchange="this.form.submit()"> <!-- para poder fazer a checkbox ter a função de butão submit -->
+          <!-- value -> dar um nome para o checkbox quando eu fizer req.body.checkbox no post request (app.js)-->
+          <p><%=  newListItems[i].name  %></p>
+        </div>
+        <input type="hidden" name="listName" value="<%= listTitle %>"></input>
+        <!-- A hidden field let web developers include data that cannot be seen or modified by users when a form is submitted. -->
+      </form>
+      <% } //newListItems.forEach(function(item){}); %>
+
+      <form class="item" action="/" method="post">
+        <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
+        <button type="submit" name="list" value="<%= listTitle %>">+</button>
+      </form>
+  </div>
+
+<%- include("footer") -%>
